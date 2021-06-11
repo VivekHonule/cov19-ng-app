@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { appRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -10,7 +9,6 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import {LoginComponent} from "./login";
 import {RegisterComponent} from "./register";
 import {HomeComponent} from "./home";
-// used to create fake backend
 import { fakeBackendProvider } from './_helpers';
 
 @NgModule({

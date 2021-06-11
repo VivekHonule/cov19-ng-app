@@ -5,38 +5,32 @@ import {first} from 'rxjs/operators';
 
 import {AlertService, AuthenticationService, UserService} from '../_services';
 
-@Component({templateUrl: 'register.component.html'})
+@Component({templateUrl: './register.component.html'})
 export class RegisterComponent implements OnInit {
-  // @ts-ignore
-  registerForm: FormGroup;
+  registrationForm!: FormGroup;
   loading = false;
   submitted = false;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private authenticationService: AuthenticationService,
-    private userService: UserService,
-    private alertService: AlertService
-  ) {
-    // redirect to home if already logged in
+  constructor(private formBuilder: FormBuilder, private router: Router, private authenticationService: AuthenticationService, private userService: UserService, private alertService: AlertService) {
     if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/']);
+      let succeed = this.router.navigate(['/']);
+      if (!succeed) {
+        //ToDo: add fallback here
+      }
     }
   }
 
   ngOnInit() {
-    this.registerForm = this.formBuilder.group({
+    this.registrationForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
-  // convenience getter for easy access to form fields
-  get f() {
-    return this.registerForm.controls;
+  get formControls() {
+    return this.registrationForm.controls;
   }
 
   onSubmit() {
@@ -46,12 +40,12 @@ export class RegisterComponent implements OnInit {
     this.alertService.clear();
 
     // stop here if form is invalid
-    if (this.registerForm.invalid) {
+    if (this.registrationForm.invalid) {
       return;
     }
 
     this.loading = true;
-    this.userService.register(this.registerForm.value)
+    this.userService.register(this.registrationForm.value)
       .pipe(first())
       .subscribe(
         () => {
