@@ -35,22 +35,20 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
-    // reset alerts on submit
     this.alertService.clear();
-
-    // stop here if form is invalid
     if (this.registrationForm.invalid) {
       return;
     }
-
     this.loading = true;
     this.userService.register(this.registrationForm.value)
       .pipe(first())
       .subscribe(
         () => {
           this.alertService.success('Registration successful', true);
-          this.router.navigate(['/login']);
+          let succeed = this.router.navigate(['/login']);
+          if (!succeed) {
+            //ToDo: add fallback here
+          }
         },
         error => {
           this.alertService.error(error);
