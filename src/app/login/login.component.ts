@@ -7,17 +7,18 @@ import {AlertService, AuthenticationService} from '../_services';
 
 @Component({templateUrl: 'login.component.html'})
 export class LoginComponent implements OnInit {
-  // @ts-ignore
-  loginForm: FormGroup;
+
+  loginForm!: FormGroup;
   loading = false;
   submitted = false;
-  // @ts-ignore
-  returnUrl: string;
+  returnUrl!: string;
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService, private alertService: AlertService) {
-    // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/']);
+      let succeed = this.router.navigate(['/']);
+      if (!succeed) {
+        //ToDo: add a fallback here
+      }
     }
   }
 
@@ -31,28 +32,26 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  // convenience getter for easy access to form fields
-  get f() {
+  get formControls() {
     return this.loginForm.controls;
   }
 
   onSubmit() {
     this.submitted = true;
-
-    // reset alerts on submit
     this.alertService.clear();
-
-    // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
     }
 
     this.loading = true;
-    this.authenticationService.login(this.f.username.value, this.f.password.value)
+    this.authenticationService.login(this.loginForm.value)
       .pipe(first())
       .subscribe(
-        data => {
-          this.router.navigate([this.returnUrl]);
+        () => {
+          let succeed = this.router.navigate([this.returnUrl]);
+          if (!succeed) {
+            //ToDO: add fallback here
+          }
         },
         error => {
           this.alertService.error(error);

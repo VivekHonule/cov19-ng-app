@@ -1,34 +1,17 @@
-﻿import { Component, OnInit } from '@angular/core';
-import { first } from 'rxjs/operators';
+﻿import {Component, OnInit} from '@angular/core';
 
-import { User } from '../_models';
-import { UserService, AuthenticationService } from '../_services';
+import {User} from '../_models';
+import {AuthenticationService} from '../_services';
 
-@Component({ templateUrl: 'home.component.html' })
+@Component({templateUrl: 'home.component.html'})
 export class HomeComponent implements OnInit {
-    currentUser: User;
-    users : User[] = [];
+  currentUser: User;
 
-    constructor(
-        private authenticationService: AuthenticationService,
-        private userService: UserService
-    ) {
-        this.currentUser = this.authenticationService.currentUserValue;
-    }
+  constructor(private authenticationService: AuthenticationService) {
+    this.currentUser = this.authenticationService.currentUserValue;
+  }
 
-    ngOnInit() {
-        this.loadAllUsers();
-    }
-
-    deleteUser(id: number) {
-        this.userService.delete(id)
-            .pipe(first())
-            .subscribe(() => this.loadAllUsers());
-    }
-
-    private loadAllUsers() {
-        this.userService.getAll()
-            .pipe(first())
-            .subscribe(users => this.users = users);
-    }
+  ngOnInit() {
+    //load data to populate inside the dashboard
+  }
 }
