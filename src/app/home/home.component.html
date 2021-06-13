@@ -65,8 +65,7 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getStates(row)"
-          class="font-weight-bold"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getStates(row)" class="font-weight-bold"></tr>
     </table>
   </div>
 
