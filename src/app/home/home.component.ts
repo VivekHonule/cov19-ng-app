@@ -13,6 +13,9 @@ export class HomeComponent implements OnInit {
   globalRecovered: number;
   globalDeceased: number;
   region: string;
+  activeToday: number;
+  recoveredToday: number;
+  deceasedToday: number;
 
   constructor(private authenticationService: AuthenticationService, private dashboardService: DashboardService, private changeDetectorRefs: ChangeDetectorRef) {
     this.currentUser = this.authenticationService.currentUserValue;
@@ -25,6 +28,13 @@ export class HomeComponent implements OnInit {
         this.dashboardService.calculateGlobalData(this.dataSource, this)
         this.region = 'world';
       });
+
+    this.dashboardService.getDataForToday()
+      .subscribe((response) => {
+        this.activeToday = response.active;
+        this.recoveredToday = response.recovered;
+        this.deceasedToday = response.deceased;
+      });
   }
 
   getStates(country: Region) {
@@ -33,7 +43,14 @@ export class HomeComponent implements OnInit {
         this.dataSource = response
         this.dashboardService.calculateGlobalData(this.dataSource, this);
         this.region = country.name;
-        this.changeDetectorRefs.detectChanges()
       });
+
+    this.dashboardService.getCountryDataForToday(country.name)
+      .subscribe((response) => {
+        this.activeToday = response.active;
+        this.recoveredToday = response.recovered;
+        this.deceasedToday = response.deceased;
+      });
+    this.changeDetectorRefs.detectChanges()
   }
 }

@@ -34,6 +34,17 @@
           <p class="card-text">{{globalDeceased}}</p>
         </div>
       </div>
+      <div class="card text-white bg-dark mb-3" style="width: 14rem;">
+        <div class="card-header">Today's Data</div>
+        <div class="card-body">
+          <h6 class="card-title">Across the {{region}}</h6>
+          <p class="card-text">
+            Active: {{activeToday}} <br>
+            Recovered: {{recoveredToday}} <br>
+            Deceased: {{deceasedToday}} <br>
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -65,8 +76,8 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getStates(row)" class="font-weight-bold"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getStates(row)"
+          class="font-weight-bold"></tr>
     </table>
   </div>
-
 </div>

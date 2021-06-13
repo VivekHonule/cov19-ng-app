@@ -35,4 +35,12 @@ export class DashboardService {
     homeComponent.globalRecovered = globalRecovered;
     homeComponent.globalDeceased = globalDeceased;
   }
+
+  getDataForToday() {
+    return this.http.get<Region>(`${environment.apiUrl}/dashboard/current`);
+  }
+
+  getCountryDataForToday(country: string) {
+    return this.http.get<Region>(`${environment.apiUrl}/dashboard/current/${country}`);
+  }
 }
