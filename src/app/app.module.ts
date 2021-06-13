@@ -9,6 +9,7 @@ import {ErrorInterceptor} from './_helpers';
 import {LoginComponent} from "./login";
 import {RegisterComponent} from "./register";
 import {HomeComponent} from "./home";
+import {MatTableModule} from '@angular/material/table'
 
 @NgModule({
   declarations: [
@@ -16,13 +17,14 @@ import {HomeComponent} from "./home";
     AlertComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     appRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatTableModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

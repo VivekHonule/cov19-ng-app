@@ -1,24 +1,32 @@
-﻿<h2>Login</h2>
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
+﻿<div class="container" style="margin-left: 270px; margin-top: 65px;">
+  <div class="row" style="margin-bottom: 30px;">
+    <h2>Login</h2>
+  </div>
+  <div class="row">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" style="width: 40%; border: 2px solid;background: whitesmoke">
+      <div class="form-group" style="padding-left: 20px; padding-right: 20px;">
         <label for="username">Username</label>
-        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.username.errors }" />
+        <input type="text" formControlName="username" class="form-control"
+               [ngClass]="{ 'is-invalid': submitted && formControls.username.errors }"/>
         <div *ngIf="submitted && formControls.username.errors" class="invalid-feedback">
-            <div *ngIf="formControls.username.errors.required">Username is required</div>
+          <div *ngIf="formControls.username.errors.required">Username is required</div>
         </div>
-    </div>
-    <div class="form-group">
+      </div>
+      <div class="form-group" style="padding-left: 20px; padding-right: 20px;">
         <label for="password">Password</label>
-        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.password.errors }" />
+        <input type="password" formControlName="password" class="form-control"
+               [ngClass]="{ 'is-invalid': submitted && formControls.password.errors }"/>
         <div *ngIf="submitted && formControls.password.errors" class="invalid-feedback">
-            <div *ngIf="formControls.password.errors.required">Password is required</div>
+          <div *ngIf="formControls.password.errors.required">Password is required</div>
         </div>
-    </div>
-    <div class="form-group">
+      </div>
+      <div class="form-group" style="padding-left: 20px; padding-right: 20px;">
         <button [disabled]="loading" class="btn btn-primary">
-            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-            Login
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Login
         </button>
         <a routerLink="/register" class="btn btn-link">Register</a>
-    </div>
-</form>
+      </div>
+    </form>
+  </div>
+</div>

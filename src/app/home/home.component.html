@@ -1,2 +1,85 @@
-﻿<h1>Hi {{currentUser.firstName}}!</h1>
-<p>Welcome to Covid-19 dashboard</p>
+﻿<div class="container">
+
+  <div class="row first-row">
+    <h4>Hi {{currentUser.firstName}} {{currentUser.lastName}}!</h4>
+  </div>
+
+  <div class="row">
+    <div class="card-deck">
+      <div class="card text-white bg-danger mb-3" style="width: 14rem;">
+        <div class="card-header">Confirmed</div>
+        <div class="card-body">
+          <h6 class="card-title">Confirmed cases across the {{region}}</h6>
+          <p class="card-text">{{globalConfirmed}}</p>
+        </div>
+      </div>
+      <div class="card text-white bg-primary mb-3" style="width: 14rem;">
+        <div class="card-header">Active</div>
+        <div class="card-body">
+          <h6 class="card-title">Active cases across the {{region}}</h6>
+          <p class="card-text">{{globalActive}}</p>
+        </div>
+      </div>
+      <div class="card text-white bg-success mb-3" style="width: 14rem;">
+        <div class="card-header">Recovered</div>
+        <div class="card-body">
+          <h6 class="card-title">Recovered cases across the {{region}}</h6>
+          <p class="card-text">{{globalRecovered}}</p>
+        </div>
+      </div>
+      <div class="card text-white bg-secondary mb-3" style="width: 14rem;">
+        <div class="card-header">Deceased</div>
+        <div class="card-body">
+          <h6 class="card-title">Deceased cases across the {{region}}</h6>
+          <p class="card-text">{{globalDeceased}}</p>
+        </div>
+      </div>
+      <div class="card text-white bg-dark mb-3" style="width: 14rem;">
+        <div class="card-header">Today's Count</div>
+        <div class="card-body">
+          <h6 class="card-title">Across the {{region}}</h6>
+          <p class="card-text">
+            New Cases: {{activeToday}} <br>
+            Recovered: {{recoveredToday}} <br>
+            Deceased: {{deceasedToday}} <br>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table-hover">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Country/State</th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="confirmed">
+        <th mat-header-cell *matHeaderCellDef> Confirmed</th>
+        <td mat-cell *matCellDef="let element"> {{element.confirmed}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="active">
+        <th mat-header-cell *matHeaderCellDef> Active</th>
+        <td mat-cell *matCellDef="let element"> {{element.active}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="recovered">
+        <th mat-header-cell *matHeaderCellDef> Recovered</th>
+        <td mat-cell *matCellDef="let element"> {{element.recovered}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="deceased">
+        <th mat-header-cell *matHeaderCellDef> Deceased</th>
+        <td mat-cell *matCellDef="let element"> {{element.deceased}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getStates(row)"
+          class="font-weight-bold"></tr>
+    </table>
+  </div>
+</div>
+
+
